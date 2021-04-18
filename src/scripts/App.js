@@ -17,6 +17,19 @@ export class App {
               </div>`;
   }
 
+  createCard(card) {
+    return `<div class="kanban__card" id = "${card.id}">
+                <p class="kanban__card-name">${card.title}</p>
+                <p class="kanban__card-comment unvisible">${card.comment}</p>
+                <div class="kanban__card-btn kanban__card-btn--setting unvisible"></div>
+                <div class="kanban__card-btn kanban__card-btn--next"></div>
+                <div class="kanban__card-footer">
+                    <p class="kanban__card-date">${card.date}</p>
+                    <p class="kanban__card-user unvisible">${card.author}</p>
+                </div>
+            </div>`;
+}
+
   init() {
     this.todosData = getElementInLocalStorage("todos");
     this.todosData.forEach((col) => new Column(col).init());
