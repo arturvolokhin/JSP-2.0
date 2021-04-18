@@ -1,4 +1,4 @@
-let cardData = [
+export const cardData = [
     {
         id: "#todo",
         title: "Todo",
