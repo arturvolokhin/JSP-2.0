@@ -51,12 +51,24 @@ export class Column extends App {
         location.reload();
     }
 
-    removeCard(element) {
-        let columns = JSON.parse(localStorage.getItem('todos'));
+    openCard(element) {
+        let card = element.closest(".kanban__card");
 
-        columns.forEach((column) => {
-            
-        });
+        card.classList.toggle("card-active");
+        card.querySelector(".kanban__card-comment").classList.toggle("unvisible");
+        card.querySelector(".kanban__card-btn--setting").classList.toggle( "unvisible");
+        card.querySelector(".kanban__card-btn--next").classList.toggle("unvisible");
+        card.querySelector(".kanban__card-user").classList.toggle("unvisible");
+        document.querySelector(".wrap").classList.toggle("darkness");
+
+        //Далее отрезаем возможность свернуть карточку с открытым модальным окном настроек.
+
+        let cardChildren = [...card.children];
+        let settingModal = cardChildren.find((child) => child.classList.contains("visible"));
+
+        if (settingModal) {
+            settingModal.classList.toggle("visible");
+        }
     }
 
 }
