@@ -1,4 +1,4 @@
-let cardData = [
+let data = [
     {
         id: "#todo",
         title: "Todo",
