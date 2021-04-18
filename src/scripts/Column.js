@@ -32,4 +32,18 @@ export class Column extends App {
         this.toggleDarknessElement(document.querySelector(".wrap"));
     }
 
+    removeAllCard(element) {
+        let columns = JSON.parse(localStorage.getItem('todos'));
+    
+        columns.forEach((column) => {
+            if (column.id.slice(1) === element.closest('.kanban__column').id) {
+                column.todos.length = 0;
+            }
+        });
+
+        columns = JSON.stringify(columns);
+        localStorage.setItem('todos', columns);
+        location.reload();
+    }
+
 }
