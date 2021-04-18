@@ -26,4 +26,20 @@ document.addEventListener('click', (e) => {
     if (e.target.classList.contains('kanban__column-delete-cards')) {
         column.removeAllCard(e.target);
     }
+
+    if (e.target.closest(".kanban__card")) {
+        if (
+            !e.target.classList.contains("kanban__card-btn--next") &&
+            !e.target.classList.contains("kanban__card-btn--setting") &&
+            !e.target.classList.contains("kanban__card-item--edit") &&
+            !e.target.classList.contains("kanban__card-setting") &&
+            !e.target.classList.contains("kanban__card-edit") &&
+            !e.target.classList.contains("kanban__card-edit--button") &&
+            !e.target.classList.contains("kanban__card-edit--name") &&
+            !e.target.classList.contains("kanban__card-edit--comment") &&
+            !e.target.classList.contains("kanban__card-edit--buttons")
+        ) {
+            column.openCard(e.target);
+        }
+    }
 });
