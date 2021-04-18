@@ -10,4 +10,20 @@ let column = new Column(getElementInLocalStorage('todos'));
 
 document.addEventListener('click', (e) => {
     
+    if (e.target.classList.contains('kanban__modal-btn--add')){
+        let modal = document.querySelector(".kanban__modal");
+        let title = modal.querySelector("input").value;
+        let comment = modal.querySelector("textarea").value;
+        let author = modal.querySelector(".kanban__modal-list").value;
+        column.addNewCard(title, comment, author);
+    }
+
+    if (e.target.classList.contains('kanban__column-add-elements') ||
+        e.target.classList.contains("kanban__modal-btn--cancel")) {
+        column.useModal(document.querySelector('.kanban__modal'));
+    } 
+
+    if (e.target.classList.contains('kanban__column-delete-cards')) {
+        column.removeAllCard(e.target);
+    }
 });
