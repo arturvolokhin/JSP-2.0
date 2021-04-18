@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fonts/stylesheet.css">
+    <link rel="stylesheet" href="style/main.css">
+    <script src="./scripts/main.js" defer type="module"></script>
+    <title>Kanban fuckup</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="wrap"></div>
+        <h2 class="kanban__logo"><span>K</span>anban <span>F</span>uckup</h2>
+        
+        <div class="kanban">
+            <h1 class="kanban__title">Проведи свой день продуктивно с Kanban Fuckup</h1>
+            <div class="kanban__wrap">
+                <div class="kanban__column  kanban__column--todo" id="todo"></div>
+                <div class="kanban__column  kanban__column--progress" id="inProgress"></div>
+                <div class="kanban__column  kanban__column--done" id="done"></div>
+            </div>
+        </div>
+
+        <div class="kanban__modal">
+            <h3 class="kanban__modal-title">Добавить новую заметку</h3>
+            <input class="kanban__modal-name" type="text" placeholder="Название заметки">
+            <textarea class="kanban__modal-comment" placeholder="Введите ваше сообщение"></textarea>
+            <div class="kanban__modal-dropdown">
+                <select class="kanban__modal-list">Выберите пользователя</select>
+            </div>
+            <div class="kanban__modal-btns">
+                <button class="kanban__modal-btn kanban__modal-btn--add">Добавить</button>
+                <button class="kanban__modal-btn kanban__modal-btn--cancel">Отмена</button>
+            </div>
+        </div>
+
+        <h3 class="copyright">
+          &#169 Данный канбан разработан и создан тайным акционерным сообществом юных программистов
+        </h3>
+    </div>
+</body>
+    
+</html>
