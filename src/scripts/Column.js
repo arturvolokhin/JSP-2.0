@@ -27,4 +27,9 @@ export class Column extends App {
         item.classList.toggle("darkness");
     }
 
+    useModal(element) {
+        this.toggleVisibleElement(element);
+        this.toggleDarknessElement(document.querySelector(".wrap"));
+    }
+
 }
