@@ -46,4 +46,12 @@ export class Column extends App {
         location.reload();
     }
 
+    removeCard(element) {
+        let columns = JSON.parse(localStorage.getItem('todos'));
+
+        columns.forEach((column) => {
+            
+        });
+    }
+
 }
