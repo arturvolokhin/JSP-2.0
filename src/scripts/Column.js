@@ -9,7 +9,14 @@ export class Column extends App {
     }
         
     init() {
-            this.column.insertAdjacentHTML("afterbegin", this.createColumn());       
+            this.column.insertAdjacentHTML("afterbegin", this.createColumn());
+            this.printCards();   
     } 
+
+    printCards() {
+        this.todos.forEach((card) => {
+            this.column.querySelector(".kanban__body").insertAdjacentHTML("afterbegin", this.createCard(card));
+        });
+    }
 
 }
