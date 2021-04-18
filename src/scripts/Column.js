@@ -19,4 +19,17 @@ export class Column extends App {
         });
     }
 
+    toggleVisibleElement(item) {
+        item.classList.toggle("visible");
+    }
+
+    toggleDarknessElement(item) {
+        item.classList.toggle("darkness");
+    }
+
+    useModal(element) {
+        this.toggleVisibleElement(element);
+        this.toggleDarknessElement(document.querySelector(".wrap"));
+    }
+
 }

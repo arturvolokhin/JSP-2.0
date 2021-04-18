@@ -1,5 +1,6 @@
 import { Column } from "./Column.js";
-import {getElementInLocalStorage, setElementInLocalStorage} from "./storageApi.js";
+import { getElementInLocalStorage, setElementInLocalStorage } from "./storageApi.js";
+import { CreateNewCard } from './Card.js';
 
 export class App {
   constructor() {}
