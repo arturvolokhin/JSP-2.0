@@ -8,9 +8,10 @@ export function getElementInLocalStorage(element) {
     
     if (localStorage.length === 0) {
         
-        setElementInLocalStorage(cardData, 'todos');
-        return cardData;
+        setElementInLocalStorage(data, 'todos');
+        return data;
+    } else {
+        return  JSON.parse(localStorage.getItem(element));
     }
-    cardData = JSON.parse(localStorage.getItem(element));
-    return cardData;
+    
 }  
