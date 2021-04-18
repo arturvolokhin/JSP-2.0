@@ -22,4 +22,8 @@ document.addEventListener('click', (e) => {
         e.target.classList.contains("kanban__modal-btn--cancel")) {
         column.useModal(document.querySelector('.kanban__modal'));
     } 
+
+    if (e.target.classList.contains('kanban__column-delete-cards')) {
+        column.removeAllCard(e.target);
+    }
 });
