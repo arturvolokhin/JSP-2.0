@@ -19,4 +19,12 @@ export class Column extends App {
         });
     }
 
+    toggleVisibleElement(item) {
+        item.classList.toggle("visible");
+    }
+
+    toggleDarknessElement(item) {
+        item.classList.toggle("darkness");
+    }
+
 }

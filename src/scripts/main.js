@@ -17,4 +17,9 @@ document.addEventListener('click', (e) => {
         let author = modal.querySelector(".kanban__modal-list").value;
         column.addNewCard(title, comment, author);
     }
+
+    if (e.target.classList.contains('kanban__column-add-elements') ||
+        e.target.classList.contains("kanban__modal-btn--cancel")) {
+        column.useModal(document.querySelector('.kanban__modal'));
+    } 
 });
