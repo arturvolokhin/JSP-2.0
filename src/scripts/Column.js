@@ -10,8 +10,13 @@ export class Column extends App {
         
     init() {
             this.column.insertAdjacentHTML("afterbegin", this.createColumn());
+            this.updateColumnCounter();
             this.printCards();   
     } 
+
+    updateColumnCounter() {
+        this.column.querySelector('.kanban__column-count').innerText = this.todos.length;
+    }
 
     printCards() {
         this.todos.forEach((card) => {
