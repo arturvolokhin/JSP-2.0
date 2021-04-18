@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 let data = [
+=======
+export const cardData = [
+>>>>>>> aa0198e7d663fd49fd61c8987e36a043613e1ddd
     {
         id: "#todo",
         title: "Todo",
