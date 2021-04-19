@@ -10,8 +10,13 @@ export class Column extends App {
         
     init() {
             this.column.insertAdjacentHTML("afterbegin", this.createColumn());
+            this.updateColumnCounter();
             this.printCards();   
     } 
+
+    updateColumnCounter() {
+        this.column.querySelector('.kanban__column-count').innerText = this.todos.length;
+    }
 
     printCards() {
         this.todos.forEach((card) => {
@@ -21,6 +26,10 @@ export class Column extends App {
 
     toggleVisibleElement(item) {
         item.classList.toggle("visible");
+    }
+
+    toggleUnvisibleElement(item) {
+        item.classList.toggle("unvisible");
     }
 
     toggleDarknessElement(item) {
@@ -48,13 +57,12 @@ export class Column extends App {
 
     openCard(element) {
         let card = element.closest(".kanban__card");
-
         card.classList.toggle("card-active");
-        card.querySelector(".kanban__card-comment").classList.toggle("unvisible");
-        card.querySelector(".kanban__card-btn--setting").classList.toggle( "unvisible");
-        card.querySelector(".kanban__card-btn--next").classList.toggle("unvisible");
-        card.querySelector(".kanban__card-user").classList.toggle("unvisible");
-        document.querySelector(".wrap").classList.toggle("darkness");
+        this.toggleUnvisibleElement(card.querySelector(".kanban__card-comment"));
+        this.toggleUnvisibleElement(card.querySelector(".kanban__card-btn--setting"));
+        this.toggleUnvisibleElement(card.querySelector(".kanban__card-btn--next"));
+        this.toggleUnvisibleElement(card.querySelector(".kanban__card-user"));
+        this.toggleDarknessElement(document.querySelector(".wrap"));
 
         //Далее отрезаем возможность свернуть карточку с открытым модальным окном настроек.
 

@@ -5,13 +5,8 @@ export function setElementInLocalStorage(element, name) {
 }
 
 export function getElementInLocalStorage(element) {
-    
-    if (localStorage.length === 0) {
-        
+    if (localStorage.todos == null) {
         setElementInLocalStorage(data, 'todos');
-        return data;
-    } else {
-        return  JSON.parse(localStorage.getItem(element));
-    }
-    
+    } 
+    return  JSON.parse(localStorage.getItem(element));
 }  
