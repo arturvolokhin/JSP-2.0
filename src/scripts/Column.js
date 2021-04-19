@@ -75,4 +75,8 @@ export class Column extends App {
         }
     }
 
+    closeCard(element) {
+        this.openCard(element);
+    }
+
 }
