@@ -1,0 +1,35 @@
+.wrapper {
+    margin: 0 auto;
+    padding: 100px 0 0 0;
+    width: 100%;
+    height: 1200px;
+    background: linear-gradient(85deg, #fb63f9, #c2e534);
+    color: #fff;
+    border-radius: 100px;
+    text-align: center;
+    font-family: 'Gilroy', 'Roboto';
+}
+
+    .kanban {
+    position: relative;
+    margin: 0 auto;
+    padding: 100px 50px 0;
+    max-width: 1280px;
+    height: 880px;
+    border-radius: 25px;
+    background: linear-gradient(3deg, #e6d16c, #16014c);
+    }
+    
+        .kanban__wrap {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 100%;
+        }
+
+.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
