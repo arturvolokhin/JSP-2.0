@@ -28,6 +28,7 @@ export class App {
                     <p class="kanban__card-date">${card.date}</p>
                     <p class="kanban__card-user unvisible">${card.author}</p>
                 </div>
+                <div class="kanban__card-close unvisible"></div>
             </div>`;
 }
 

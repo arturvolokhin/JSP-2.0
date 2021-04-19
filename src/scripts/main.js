@@ -33,4 +33,8 @@ document.addEventListener('click', (e) => {
                 column.openCard(e.target);
         } 
     }
+
+    if (e.target.closest('.kanban__card-close')) {
+        column.closeCard(e.target);
+    }
 });
