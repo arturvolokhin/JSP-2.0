@@ -934,11 +934,6 @@ textarea {
   height: 100%;
 }
 
-.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
 @media (max-width: 1250px) {
   .kanban__column {
     height: 400px;
