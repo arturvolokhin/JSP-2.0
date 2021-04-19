@@ -48,13 +48,46 @@
         border-radius: 15px;
         padding: 10px;
         white-space: pre-wrap;
-        // word-break: break-all;
     }
 
     &-footer {
         display: flex;
         justify-content: space-between;
     }
+
+    &-close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 30px;
+        height: 30px;
+        opacity: 0.5;
+        
+        &:hover {
+            opacity: 0.9;
+        }
+
+        &:before {
+            position: absolute;
+            left: 15px;
+            content: ' ';
+            height: 30px;
+            width: 2px;
+            background-color: rgb(172, 44, 44);
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            position: absolute;
+            left: 15px;
+            content: ' ';
+            height: 30px;
+            width: 2px;
+            background-color: rgb(172, 44, 44);
+            transform: rotate(-45deg);
+        }
+    }    
+
     
     &-edit {
         position: absolute;

@@ -62,6 +62,7 @@ export class Column extends App {
         this.toggleUnvisibleElement(card.querySelector(".kanban__card-btn--setting"));
         this.toggleUnvisibleElement(card.querySelector(".kanban__card-btn--next"));
         this.toggleUnvisibleElement(card.querySelector(".kanban__card-user"));
+        this.toggleUnvisibleElement(card.querySelector(".kanban__card-close"));
         this.toggleDarknessElement(document.querySelector(".wrap"));
 
         //Далее отрезаем возможность свернуть карточку с открытым модальным окном настроек.
