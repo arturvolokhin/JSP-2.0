@@ -63,16 +63,27 @@ export class Column extends App {
     }
 
     showCardSettings(element) {
-
         let cardItem = [...element.closest(".kanban__card").children];
+        let checkSettings = cardItem.find((item) => item.classList.contains("kanban__card-setting"));
         
-        if (!cardItem.find((item) => item.classList.contains("kanban__card-setting")) &&
+        if (!checkSettings &&
             this.getColumnId(element) !== '#inProgress') {
             element.parentNode.insertAdjacentHTML("beforeend", this.createCardSettingsModal());
-        } else {
+        } else if (!checkSettings &&
+            this.getColumnId(element) == '#inProgress'){
             element.parentNode.insertAdjacentHTML("beforeend", this.createCardSettingsModalInProgressColumn());
         }
-        document.querySelector(".kanban__card-setting").classList.toggle("visible");
+        element.parentNode.querySelector('.kanban__card-setting').classList.toggle("visible");
+    }
+
+    showEditCardModal(element) {
+        let cardChildren = [...element.closest('.kanban__card').children];
+        
+        if (!cardChildren.find((item) => item.classList.contains('kanban__card-edit'))) {
+            element.closest('.kanban__card').insertAdjacentHTML("afterbegin", this.createEditCardModal());
+        }
+        element.closest('.kanban__card-setting').classList.toggle('visible');
+        element.closest('.kanban__card').querySelector('.kanban__card-edit').classList.toggle('visible');
     }
 
     addNewCard(titleText, cardTextInput, cardAuthor) {

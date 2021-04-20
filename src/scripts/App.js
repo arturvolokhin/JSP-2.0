@@ -43,6 +43,17 @@ export class App {
               </ul>`;
   }
 
+  createEditCardModal() {
+    return `<ul class="kanban__card-edit">
+                <input type="text" class="kanban__card-edit--name" placeholder="Изменить название заметки">
+                <textarea class="kanban__card-edit--comment" placeholder="Изменить комментарий заметки"></textarea>
+                <div class="kanban__card-edit--buttons">
+                    <button class="kanban__card-edit--button  kanban__card-edit--submit">Сохранить</button>
+                    <button class="kanban__card-edit--button  kanban__card-edit--cancel">Отменить</button>
+                </div>
+            </ul>`;
+  }
+
   init() {
       this.todosData = getElementInLocalStorage("todos");
       this.todosData.forEach((col) => new Column(col).init());

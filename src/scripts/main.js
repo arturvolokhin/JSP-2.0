@@ -45,4 +45,12 @@ document.addEventListener('click', (e) => {
     if (e.target.closest('.kanban__card-item--delete')){
         column.removeCard(e.target);
     }
+
+    if (e.target.classList.contains("kanban__card-item--edit")) {
+        column.showEditCardModal(e.target);
+    }
+
+    if (e.target.classList.contains("kanban__card-edit--cancel")) {
+        column.toggleVisibleElement(e.target.closest('.kanban__card-edit'));
+    }
 });
