@@ -75,4 +75,25 @@ export class Column extends App {
         }
     }
 
+    showCardSettings(element) {
+
+        function paintCardSettingsModal() {
+            element.parentNode.insertAdjacentHTML(
+                "beforeend",
+                `<ul class="kanban__card-setting visible">
+                    <li class="kanban__card-item  kanban__card-item--edit">Изменить комментарий и название заметки</li>
+                    <li class="kanban__card-item  kanban__card-item--delete">Удалить заметку</li>
+                </ul>`
+            );
+        }
+
+        let cardItem = [...element.closest(".kanban__card").children];
+        
+        if (!cardItem.find((item) => item.classList.contains("kanban__card-setting"))) {
+            paintCardSettingsModal();
+        } else {
+            element.parentNode.querySelector(".kanban__card-setting").classList.toggle("visible");
+        }
+    }
+
 }
