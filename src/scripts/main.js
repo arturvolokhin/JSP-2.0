@@ -30,7 +30,7 @@ document.addEventListener('click', (e) => {
     if (e.target.closest(".kanban__card")) {
         if (!e.target.closest(".kanban__card").classList.contains('card-active') && 
             !e.target.classList.contains("kanban__card-btn--next")){
-                column.openCard(e.target);
+                column.openCard(e.target.closest(".kanban__card"));
         } 
     }
 
@@ -39,7 +39,7 @@ document.addEventListener('click', (e) => {
     }
 
     if (e.target.closest('.kanban__card-close')) {
-        column.closeCard(e.target);
+        column.closeCard(e.target.closest(".kanban__card"));
     }
 
     if (e.target.closest('.kanban__card-item--delete')){

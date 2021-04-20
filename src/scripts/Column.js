@@ -30,8 +30,8 @@ export class Column extends App {
         item.classList.toggle("visible");
     }
 
-    toggleUnvisibleElement(item) {
-        item.classList.toggle("unvisible");
+    toggleUnvisibleElement(...item) {
+        item.forEach((element) => element.classList.toggle('unvisible'));
     }
 
     toggleDarknessElement(item) {
@@ -43,33 +43,21 @@ export class Column extends App {
         this.toggleDarknessElement(document.querySelector(".wrap"));
     }
 
-    removeAllCard(element) {
-        let column = this.data.find((item) => item.id === this.getColumnId(element));
-        column.todos.length = 0
-        setElementInLocalStorage(this.data, 'todos');
-        location.reload();
+    openCard(card) {
+        card.classList.toggle("card-active");
+        this.toggleUnvisibleElement(card.querySelector(".kanban__card-comment"),
+                                    card.querySelector(".kanban__card-btn--setting"),
+                                    card.querySelector(".kanban__card-btn--next"),
+                                    card.querySelector(".kanban__card-user"),
+                                    card.querySelector(".kanban__card-close"));
+        this.toggleDarknessElement(document.querySelector(".wrap"));
     }
 
-    openCard(element) {
-        let card = element.closest(".kanban__card");
-        card.classList.toggle("card-active");
-        this.toggleUnvisibleElement(card.querySelector(".kanban__card-comment"));
-        this.toggleUnvisibleElement(card.querySelector(".kanban__card-btn--setting"));
-        this.toggleUnvisibleElement(card.querySelector(".kanban__card-btn--next"));
-        this.toggleUnvisibleElement(card.querySelector(".kanban__card-user"));
-        this.toggleUnvisibleElement(card.querySelector(".kanban__card-close"));
-        this.toggleDarknessElement(document.querySelector(".wrap"));
-
-        //Далее отрезаем возможность свернуть карточку с открытым модальным окном настроек.
-
-        let cardChildren = [...card.children];
-        let settingModal = cardChildren.find((child) =>
-        child.classList.contains("visible")
-        );
-
-        if (settingModal) {
-        settingModal.classList.toggle("visible");
-        }
+    closeCard(card) {
+        let settingsModal = [...card.children].find((child) =>
+            child.classList.contains("visible"));
+        this.openCard(card);
+        settingsModal ? settingsModal.classList.toggle("visible") : true;
     }
 
     showCardSettings(element) {
@@ -83,10 +71,6 @@ export class Column extends App {
             element.parentNode.insertAdjacentHTML("beforeend", this.createCardSettingsModalInProgressColumn());
         }
         document.querySelector(".kanban__card-setting").classList.toggle("visible");
-    }
-
-    closeCard(element) {
-        this.openCard(element);
     }
 
     addNewCard(titleText, cardTextInput, cardAuthor) {
@@ -117,6 +101,13 @@ export class Column extends App {
             card.id = `${column.todos.indexOf(card) + 1}`;
         }
         setElementInLocalStorage(this.data, "todos");
+        location.reload();
+    }
+
+    removeAllCard(element) {
+        let column = this.data.find((item) => item.id === this.getColumnId(element));
+        column.todos.length = 0
+        setElementInLocalStorage(this.data, 'todos');
         location.reload();
     }
 
