@@ -12,5 +12,7 @@ export const getUserData = () => {
                 document.querySelector(".kanban__modal-list").append(option);
             }
         })
-        .catch(console.log);
+        .catch(() => {
+            alert('Данные пользователей не получены, перезагрузите пожалуйста страницу.');
+        });
 };
