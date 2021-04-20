@@ -37,4 +37,12 @@ document.addEventListener('click', (e) => {
     if (e.target.closest('.kanban__card-btn--setting')) {
         column.showCardSettings(e.target);
     }
+
+    if (e.target.closest('.kanban__card-close')) {
+        column.closeCard(e.target);
+    }
+
+    if (e.target.closest('.kanban__card-item--delete')){
+        column.removeCard(e.target);
+    }
 });

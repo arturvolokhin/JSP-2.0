@@ -1,7 +1,5 @@
 import { Column } from "./Column.js";
 import { getElementInLocalStorage, setElementInLocalStorage } from "./storageApi.js";
-import { CreateNewCard } from './Card.js';
-
 export class App {
   constructor() {}
   
@@ -30,23 +28,23 @@ export class App {
                 </div>
                 <div class="kanban__card-close unvisible"></div>
             </div>`;
-}
+  }
+
+  createCardSettingsModal() {
+    return `<ul class="kanban__card-setting">
+                <li class="kanban__card-item  kanban__card-item--edit">Изменить комментарий и название заметки</li>
+                <li class="kanban__card-item  kanban__card-item--delete">Удалить заметку</li>
+            </ul>`;
+  }
+
+  createCardSettingsModalInProgressColumn() {
+    return `<ul class="kanban__card-setting">
+                <li class="kanban__card-item  kanban__card-item--delete">Удалить заметку</li>
+            </ul>`;
+  }
 
   init() {
     this.todosData = getElementInLocalStorage("todos");
     this.todosData.forEach((col) => new Column(col).init());
   }
-
-  addNewCard(titleText, cardTextInput, cardAuthor) {
-    let data = getElementInLocalStorage("todos");
-    let cardId = `${data[0].todos.length + 1}`;
-    let date = `${new Date().toLocaleDateString()} 
-                ${new Date().toLocaleTimeString().slice(0, -3)}`;
-                
-    let newCard = new CreateNewCard(titleText, cardTextInput, cardAuthor, date, cardId);
-    data[0].todos.push(newCard);
-    setElementInLocalStorage(data, "todos");
-    location.reload();
-}
-
 }
