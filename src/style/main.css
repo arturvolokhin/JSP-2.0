@@ -482,7 +482,7 @@ textarea {
   margin: 20px 0;
   font-size: 20px;
   text-align: left;
-  border: 3px solid deeppink;
+  border: 2px solid deeppink;
   border-radius: 10px;
   background: white;
   overflow: auto;
@@ -518,7 +518,7 @@ textarea {
   width: 85%;
   margin: 20px auto;
   border: 1px solid red;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 10px;
   white-space: pre-wrap;
 }
@@ -747,124 +747,74 @@ textarea {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.modal-warning {
-  display: none;
+.modal__warning {
   position: fixed;
-  z-index: 1;
-  padding-top: 300px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-warning-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 300px;
-  height: 200px;
-  color: red;
+  top: calc(30%);
+  left: calc(50% - 150px);
+  padding: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 400px;
+  height: 250px;
+  background: rgba(24, 6, 41, 0.96);
   border-radius: 25px;
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#a18cd1), to(#fbc2eb));
-  background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
-  font-family: 'Gilroy', 'Roboto';
-  font-size: 20px;
+  font-size: 25px;
 }
 
-.modal-warning-close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  margin-top: -18px;
-  margin-right: -11px;
-  font-weight: bold;
+.modal__warning-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
-.modal-warning-close:hover {
-  color: #4095c6;
-  cursor: pointer;
-}
-
-.modal-warning-text {
-  margin-top: 15%;
-}
-
-.modal-warning-delete {
-  margin-left: 35%;
-  margin-top: 100px;
-}
-
-.modal-warning-button {
-  margin-top: 14%;
-  -webkit-box-shadow: -29px -50px 8px -50px #899599;
-          box-shadow: -29px -50px 8px -50px #899599;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #ededed), to(#bab1ba));
-  background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
-  background-color: #ededed;
-  border-radius: 15px;
-  border: 2px solid #d6bcd6;
-  display: inline-block;
-  cursor: pointer;
-  color: #3a8a9e;
-  font-family: Arial;
-  font-size: 17px;
-  padding: 7px 25px;
-  text-decoration: none;
-  text-shadow: 0px 0px 0px #e1e2ed;
-}
-
-.modal-warning-button:hover {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #bab1ba), to(#ededed));
-  background: linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
-  background-color: #bab1ba;
-  cursor: pointer;
-}
-
-.modal-warning-button-no {
-  background-color: #ff0000;
-  border-radius: 15px;
-  border: 1px solid #ab1919;
-  display: inline-block;
-  cursor: pointer;
+.modal__warning-button {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin: 0 auto;
+  border-radius: 30px;
+  border: none;
   color: #ffffff;
-  font-family: Arial;
-  font-size: 17px;
-  padding: 7px 25px;
-  text-decoration: none;
-  text-shadow: 0px 0px 0px #2f6627;
-  margin-left: 100px;
-  margin-top: 100px;
+  font-size: 22px;
+  padding: 8px 30px;
+  background-color: rgba(255, 255, 255, 0.05);
+  -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  -webkit-transition: 0.1s linear;
+  transition: 0.1s linear;
 }
 
-.modal-warning-button-no:hover {
-  background-color: #9b150b;
-  cursor: pointer;
+.modal__warning-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px 30px 0 0;
 }
 
-.modal-warning-button-yes {
-  background-color: #44c767;
-  border-radius: 15px;
-  border: 1px solid #18ab29;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
-  font-size: 17px;
-  padding: 7px 25px;
-  text-decoration: none;
-  text-shadow: 0px 0px 0px #2f6627;
-  margin-left: -8px;
-  margin-top: 100px;
-}
-
-.modal-warning-button-yes:hover {
-  background-color: #5cbf2a;
-  cursor: pointer;
+.modal__warning-button:hover {
+  background: #5da6ff;
+  -webkit-box-shadow: 0 0 15px #5da6ff, 0 0 30px #5da6ff, 0 0 35px #5da6ff, 0 0 40px #5da6ff;
+          box-shadow: 0 0 15px #5da6ff, 0 0 30px #5da6ff, 0 0 35px #5da6ff, 0 0 40px #5da6ff;
 }
 
 .card-active {
