@@ -1,6 +1,7 @@
 import { App } from "./App.js";
 import { getElementInLocalStorage, setElementInLocalStorage } from "./storageApi.js";
 import { CreateNewCard } from "./Card.js";
+
 export class Column extends App {
     constructor(columnData) {
         super();
@@ -22,7 +23,8 @@ export class Column extends App {
 
     printCards() {
         this.todos.forEach((card) => {
-        this.column.querySelector(".kanban__body").insertAdjacentHTML("afterbegin", this.createCard(card));
+        this.column.querySelector(".kanban__body").insertAdjacentHTML("afterbegin",
+            this.createCard(card));
         });
     }
 
@@ -46,10 +48,10 @@ export class Column extends App {
     openCard(card) {
         card.classList.toggle("card-active");
         this.toggleUnvisibleElement(card.querySelector(".kanban__card-comment"),
-                                    card.querySelector(".kanban__card-btn--setting"),
-                                    card.querySelector(".kanban__card-btn--next"),
-                                    card.querySelector(".kanban__card-user"),
-                                    card.querySelector(".kanban__card-close"));
+            card.querySelector(".kanban__card-btn--setting"),
+            card.querySelector(".kanban__card-btn--next"),
+            card.querySelector(".kanban__card-user"),
+            card.querySelector(".kanban__card-close"));
         this.toggleDarknessElement(document.querySelector(".wrap"));
     }
 
@@ -76,7 +78,7 @@ export class Column extends App {
     addNewCard(titleText, cardTextInput, cardAuthor) {
         let cardId = `${this.data[0].todos.length + 1}`;
         let date = `${new Date().toLocaleDateString()} 
-                    ${new Date().toLocaleTimeString().slice(0, -3)}`;
+            ${new Date().toLocaleTimeString().slice(0, -3)}`;
         let newCard = new CreateNewCard(titleText, cardTextInput, cardAuthor, date, cardId);
         this.data[0].todos.push(newCard);
         setElementInLocalStorage(this.data, "todos");
@@ -85,7 +87,6 @@ export class Column extends App {
 
     getCardIndex(element){
         let cardIndex = element.closest(".kanban__card").id-1;
-        console.log(cardIndex);
         return cardIndex;
     }
 
@@ -106,7 +107,7 @@ export class Column extends App {
 
     removeAllCard(element) {
         let column = this.data.find((item) => item.id === this.getColumnId(element));
-        column.todos.length = 0
+        column.todos.length = 0;
         setElementInLocalStorage(this.data, 'todos');
         location.reload();
     }
