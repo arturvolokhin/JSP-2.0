@@ -28,7 +28,20 @@ export class App {
                 </div>
                 <div class="kanban__card-close unvisible"></div>
             </div>`;
-}
+  }
+
+  createCardSettingsModal() {
+    return `<ul class="kanban__card-setting">
+                <li class="kanban__card-item  kanban__card-item--edit">Изменить комментарий и название заметки</li>
+                <li class="kanban__card-item  kanban__card-item--delete">Удалить заметку</li>
+            </ul>`;
+  }
+
+  createCardSettingsModalInProgressColumn() {
+    return `<ul class="kanban__card-setting">
+                <li class="kanban__card-item  kanban__card-item--delete">Удалить заметку</li>
+            </ul>`;
+  }
 
   init() {
     this.todosData = getElementInLocalStorage("todos");
