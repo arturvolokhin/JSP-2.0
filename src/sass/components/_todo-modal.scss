@@ -114,7 +114,10 @@
     height: 250px;
     background: rgba(24, 6, 41, 0.96);
     border-radius: 25px;
-    font-size: 25px; 
+    font-size: 25px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s linear;
     
     &-buttons {
         display: flex;
