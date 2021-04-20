@@ -1,7 +1,5 @@
 import { Column } from "./Column.js";
 import { getElementInLocalStorage, setElementInLocalStorage } from "./storageApi.js";
-import { CreateNewCard } from './Card.js';
-
 export class App {
   constructor() {}
   
@@ -36,17 +34,4 @@ export class App {
     this.todosData = getElementInLocalStorage("todos");
     this.todosData.forEach((col) => new Column(col).init());
   }
-
-  addNewCard(titleText, cardTextInput, cardAuthor) {
-    let data = getElementInLocalStorage("todos");
-    let cardId = `${data[0].todos.length + 1}`;
-    let date = `${new Date().toLocaleDateString()} 
-                ${new Date().toLocaleTimeString().slice(0, -3)}`;
-                
-    let newCard = new CreateNewCard(titleText, cardTextInput, cardAuthor, date, cardId);
-    data[0].todos.push(newCard);
-    setElementInLocalStorage(data, "todos");
-    location.reload();
-}
-
 }

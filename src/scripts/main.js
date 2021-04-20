@@ -24,7 +24,7 @@ document.addEventListener('click', (e) => {
     } 
 
     if (e.target.classList.contains('kanban__column-delete-cards')) {
-        column.removeAllCard(e.target);
+        column.removeAllCard(e);
     }
 
     if (e.target.closest(".kanban__card")) {
@@ -36,5 +36,8 @@ document.addEventListener('click', (e) => {
 
     if (e.target.closest('.kanban__card-close')) {
         column.closeCard(e.target);
+    }
+    if(e.target.closest('.kanban__card-btn--setting')){
+        column.removeCard(e);
     }
 });
