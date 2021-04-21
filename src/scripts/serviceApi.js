@@ -9,7 +9,7 @@ export const getUserData = () => {
         .then(person => {
             for (let i = 0; i < person.length; i++) {
                 let option = new Option(person[i], `${person[i]}`);
-                document.querySelector(".kanban__modal-list").append(option);
+                document.querySelector(".modal__list").append(option);
             }
         })
         .catch(console.log);

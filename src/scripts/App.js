@@ -1,5 +1,6 @@
 import { Column } from "./Column.js";
 import { getElementInLocalStorage, setElementInLocalStorage } from "./storageApi.js";
+import { getUserData } from './serviceApi.js';
 export class App {
   constructor() {}
   
@@ -20,8 +21,8 @@ export class App {
       return `<div class="kanban__card" id = "${card.id}">
                   <p class="kanban__card-name">${card.title}</p>
                   <p class="kanban__card-comment unvisible">${card.comment}</p>
-                  <div class="kanban__card-btn kanban__card-btn--setting unvisible"></div>
-                  <div class="kanban__card-btn kanban__card-btn--next"></div>
+                  <div class="kanban__card-button kanban__card-button--setting unvisible"></div>
+                  <div class="kanban__card-button kanban__card-button--next"></div>
                   <div class="kanban__card-footer">
                       <p class="kanban__card-date">${card.date}</p>
                       <p class="kanban__card-user unvisible">${card.author}</p>
@@ -57,5 +58,6 @@ export class App {
   init() {
       this.todosData = getElementInLocalStorage("todos");
       this.todosData.forEach((col) => new Column(col).init());
+      getUserData();
   }
 }

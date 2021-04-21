@@ -1,4 +1,4 @@
-.kanban__card-btn {
+.kanban__card-button {
     position: absolute;
     display: block;
     width: 30px;
@@ -7,13 +7,13 @@
     cursor: pointer;
 }
 
-.kanban__card-btn--setting {
+.kanban__card-button--setting {
     background: url(../images/icons/column-setting.png) center / contain no-repeat;
     top: 50px;
     right: 8px;
 }
 
-.kanban__card-btn--next {
+.kanban__card-button--next {
     background: url(../images/icons/arrow-rigth.png) center / contain no-repeat;
     top: 50px;
     right: 10px;
