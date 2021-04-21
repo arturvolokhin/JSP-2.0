@@ -16,11 +16,14 @@ document.addEventListener('click', (e) => {
         let comment = modal.querySelector("textarea").value;
         let author = modal.querySelector(".kanban__modal-list").value;
         column.addNewCard(title, comment, author);
+        column.clearModalInput()
+        column.useModal(document.querySelector('.kanban__modal'));
     }
 
     if (e.target.classList.contains('kanban__column-add-elements') ||
         e.target.classList.contains("kanban__modal-btn--cancel")) {
         column.useModal(document.querySelector('.kanban__modal'));
+        
     } 
 
     if (e.target.classList.contains('kanban__column-delete-cards')) {
@@ -52,5 +55,12 @@ document.addEventListener('click', (e) => {
 
     if (e.target.classList.contains("kanban__card-edit--cancel")) {
         column.toggleVisibleElement(e.target.closest('.kanban__card-edit'));
+    
     }
+    if (e.target.classList.contains("kanban__card-btn--next")) {
+        column.transferCardAnotherColumn(e.target)
+    } if (e.target.classList.contains("kanban__card-edit--submit")) {
+       column.editCard(e.target)
+    }
+
 });
