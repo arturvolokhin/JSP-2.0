@@ -641,7 +641,7 @@ textarea {
   position: absolute;
   top: calc(50% - 250px);
   right: calc(50% - 250px);
-  width: 500px;
+  max-width: 500px;
   height: 550px;
   border: 1px solid deeppink;
   border-radius: 50px;
@@ -709,7 +709,7 @@ textarea {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 390px;
+  max-width: 390px;
   margin: 35px auto;
 }
 
@@ -725,7 +725,8 @@ textarea {
   border: none;
   color: #ffffff;
   font-size: 22px;
-  padding: 8px 30px;
+  padding: 10px;
+  width: 110px;
   background-color: rgba(255, 255, 255, 0.05);
   -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -789,7 +790,7 @@ textarea {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 400px;
+  max-width: 400px;
   height: 250px;
   background: rgba(24, 6, 41, 0.96);
   border-radius: 25px;
@@ -879,7 +880,7 @@ textarea {
 @media (max-width: 1250px) {
   .kanban__column {
     height: 400px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto 50px;
     -webkit-transition: none;
     transition: none;
@@ -936,5 +937,23 @@ textarea {
   }
   .kanban__head {
     min-width: 0;
+  }
+  .modal {
+    max-width: 330px;
+    right: calc(50% - 165px);
+  }
+  .modal__warning {
+    max-width: 300px;
+  }
+  .kanban__card {
+    min-width: 250px;
+    font-size: 15px;
+  }
+  .kanban__column-head {
+    min-width: 250px;
+  }
+  .card-active {
+    width: 280px;
+    left: calc(50% - 140px);
   }
 }

@@ -2,7 +2,7 @@
 
     .kanban__column {
         height: 400px;
-        width: 80%;
+        width: 90%;
         margin: 0 auto 50px;
         transition: none;
     }
@@ -75,4 +75,29 @@
     .kanban__head {
         min-width: 0;
     }
+
+    .modal {
+        max-width: 330px;
+        right: calc(50% - 165px);
+    }
+
+    .modal__warning {
+        max-width: 300px;
+    }
+
+    .kanban__card {
+        min-width: 250px;
+        font-size: 15px;
+    }
+
+    .kanban__column-head {
+        min-width: 250px;
+    }
+
+    .card-active {
+        width: 280px;
+        left: calc(50% - 140px);
+    }
+
+
 }

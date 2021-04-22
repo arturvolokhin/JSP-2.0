@@ -14,5 +14,5 @@ export const getUserData = () => {
                 }
             }
         })
-        .catch(console.log);
+        .catch(alert);
 };
