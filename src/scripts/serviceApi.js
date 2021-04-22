@@ -7,9 +7,11 @@ export const getUserData = () => {
             return person;
         })
         .then(person => {
-            for (let i = 0; i < person.length; i++) {
-                let option = new Option(person[i], `${person[i]}`);
-                document.querySelector(".modal__list").append(option);
+            if (document.querySelector(".modal__list").children.length === 0) {
+                for (let i = 0; i < person.length; i++) {
+                    let option = new Option(person[i], `${person[i]}`);
+                    document.querySelector(".modal__list").append(option);
+                }
             }
         })
         .catch(console.log);

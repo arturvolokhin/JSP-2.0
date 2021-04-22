@@ -72,12 +72,16 @@ export class Column extends App {
         let cardItem = [...element.closest(".kanban__card").children];
         let checkSettings = cardItem.find((item) => item.classList.contains("kanban__card-setting"));
 
-        if (!checkSettings && this.getColumnId(element) !== "#inProgress") {
+        if (!checkSettings && this.getColumnId(element) !== "#inProgress" &&
+            this.getColumnId(element) !== "#done") {
             element.parentNode.insertAdjacentHTML("beforeend",
             this.createCardSettingsModal());
+        } else if (!checkSettings && this.getColumnId(element) == "#done") {
+            element.parentNode.insertAdjacentHTML("beforeend",
+            this.createCardSettingsModalWithoutEdit());
         } else if (!checkSettings && this.getColumnId(element) == "#inProgress") {
             element.parentNode.insertAdjacentHTML("beforeend",
-            this.createCardSettingsModalInProgressColumn());
+            this.createCardSettingsModalWithoutEdit());
         }
         element.parentNode.querySelector(".kanban__card-setting").classList.toggle("visible");
     }

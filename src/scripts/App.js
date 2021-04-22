@@ -38,7 +38,7 @@ export class App {
               </ul>`;
   }
 
-  createCardSettingsModalInProgressColumn() {
+  createCardSettingsModalWithoutEdit() {
       return `<ul class="kanban__card-setting">
                   <li class="kanban__card-item  kanban__card-item--delete">Удалить заметку</li>
               </ul>`;
@@ -56,8 +56,9 @@ export class App {
   }
 
   init() {
-      this.todosData = getElementInLocalStorage("todos");
-      this.todosData.forEach((col) => new Column(col).init());
-      getUserData();
+    getUserData();
+    this.todosData = getElementInLocalStorage("todos");
+    this.todosData.forEach((col) => new Column(col).init());
+      
   }
 }
