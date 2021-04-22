@@ -6,47 +6,48 @@ export class Column extends App {
     constructor(columnData) {
         super();
         let {id, title, counter, columnClass, btnDeleteCard, btnCreateCard, todos,} = columnData;
-        Object.assign(this, {id, title, counter, columnClass, btnDeleteCard, btnCreateCard, todos,});
+        Object.assign(this, {id, title, counter, columnClass, btnDeleteCard, btnCreateCard, todos,}); //оставляем
         this.column = document.querySelector(this.id);
         this.data = columnData;
+
     }
 
     init() {
         this.deleteOldHtmlElement(this.column);
-        this.column.insertAdjacentHTML("afterbegin", this.createColumn());
+        this.column.insertAdjacentHTML("afterbegin", this.createColumn()); //здесь мы прокинем иниты с классов колонок
         this.updateColumnCounter();
         this.printCards();
     }
 
     updateColumnCounter() {
-        this.column.querySelector(".kanban__column-count").innerText = this.todos.length;
+        this.column.querySelector(".kanban__column-count").innerText = this.todos.length; //оставляем здесь
     }
 
     printCards() {
         this.todos.forEach((card) => {
-            this.column.querySelector(".kanban__body").insertAdjacentHTML("afterbegin", this.createCard(card));
+            this.column.querySelector(".kanban__body").insertAdjacentHTML("afterbegin", this.createCard(card)); //оставляем
         });
     }
 
-    toggleVisibleElement(item) {
-        item.classList.toggle("visible");
+    toggleVisibleElement(item) { 
+        item.classList.toggle("visible"); //оставляем тут
     }
 
     toggleUnvisibleElement(...item) {
-        item.forEach((element) => element.classList.toggle("unvisible"));
+        item.forEach((element) => element.classList.toggle("unvisible")); //оставим
     }
 
     darkenBackground() {
-        document.querySelector(".wrap").classList.toggle('darkness');
+        document.querySelector(".wrap").classList.toggle('darkness'); //оставим тут но переделаем
     }
 
     openModal(element) {
-        this.toggleVisibleElement(element);
-        this.darkenBackground();
+        this.toggleVisibleElement(element); //удаляем делаем на одном тоггле
+        this.darkenBackground(); 
     }
 
     closeModal(element) {
-        this.toggleVisibleElement(element);
+        this.toggleVisibleElement(element);//удаляем делаем на одном тоггле
         this.darkenBackground();
     }
 
@@ -54,7 +55,7 @@ export class Column extends App {
         card.classList.toggle("card-active");
         this.toggleUnvisibleElement(
             card.querySelector(".kanban__card-comment"),
-            card.querySelector(".kanban__card-button--setting"),
+            card.querySelector(".kanban__card-button--setting"), //подумаем
             card.querySelector(".kanban__card-button--next"),
             card.querySelector(".kanban__card-user"),
             card.querySelector(".kanban__card-close")
@@ -63,14 +64,14 @@ export class Column extends App {
     }
 
     closeCard(card) {
-        let settingsModal = [...card.children].find((child) => child.classList.contains("visible"));
+        let settingsModal = [...card.children].find((child) => child.classList.contains("visible")); //перепишем
         this.openCard(card);
         settingsModal ? settingsModal.classList.toggle("visible") : true;
     }
 
     showCardSettings(element) {
         let cardItem = [...element.closest(".kanban__card").children];
-        let checkSettings = cardItem.find((item) => item.classList.contains("kanban__card-setting"));
+        let checkSettings = cardItem.find((item) => item.classList.contains("kanban__card-setting")); //подумаем
 
         if (!checkSettings && this.getColumnId(element) !== "#inProgress" &&
             this.getColumnId(element) !== "#done") {
@@ -90,7 +91,7 @@ export class Column extends App {
         let cardChildren = [...element.closest(".kanban__card").children];
 
         if (!cardChildren.find((item) => item.classList.contains("kanban__card-edit"))) {
-            element.closest(".kanban__card").insertAdjacentHTML("afterbegin", this.createEditCardModal());
+            element.closest(".kanban__card").insertAdjacentHTML("afterbegin", this.createEditCardModal());  //перепишем
         }
         element.closest(".kanban__card-setting").classList.toggle("visible");
         element.closest(".kanban__card").querySelector(".kanban__card-edit").classList.toggle("visible");
@@ -98,9 +99,9 @@ export class Column extends App {
 
     addNewCard(element) {
         let titleText =  element.offsetParent.querySelector(".modal__name").value
-        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value
+        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value //один метод    этод метод будет в объекте туду
         let cardAuthor = element.offsetParent.querySelector(".modal__list").value
-        let cardId = `${this.data[0].todos.length + 1}`;
+        let cardId = `${this.data[0].todos.length + 1}`; //вытянуть нужную дату 
         let date = `${new Date().toLocaleDateString()} 
                 ${new Date().toLocaleTimeString().slice(0, -3)}`;
         let newCard = new CreateNewCard(titleText, cardTextInput, cardAuthor, date, cardId);
@@ -110,7 +111,7 @@ export class Column extends App {
     }
 
     getCardIndex(element) {
-        let cardIndex = element.closest(".kanban__card").id - 1;
+        let cardIndex = element.closest(".kanban__card").id - 1; //оставляем не рефакторим
         return cardIndex;
     }
 
@@ -120,7 +121,7 @@ export class Column extends App {
     }
 
     removeCard(element) {
-        let column = this.data.find((item) => item.id === this.getColumnId(element));
+        let column = this.data.find((item) => item.id === this.getColumnId(element));  //чучуть подрефакторим
         column.todos.splice(this.getCardIndex(element), 1);
         for (const card of column.todos) {
             card.id = `${column.todos.indexOf(card) + 1}`;
@@ -133,7 +134,7 @@ export class Column extends App {
     removeAllCard(element) {
         let column = this.data.find((item) => item.id === this.getColumnId(element));
         if (column.id === '#inProgress' && 
-        !document.querySelector('#modalRemoveAllCards').classList.contains('visible')) {
+        !document.querySelector('#modalRemoveAllCards').classList.contains('visible')) { //оставляем
             document.querySelector('#modalRemoveAllCards').classList.toggle('visible');
             this.darkenBackground();
         } else {
@@ -143,7 +144,7 @@ export class Column extends App {
         }
     }
 
-    transferCardAnotherColumn(element) {
+    transferCardAnotherColumn(element) {//оставим тут
         let newColumnId;
         switch (this.getColumnId(element)) {
         case "#todo":
@@ -157,7 +158,7 @@ export class Column extends App {
             break;
         }
         
-        let column = this.data.find((item) => item.id === this.getColumnId(element));
+        let column = this.data.find((item) => item.id === this.getColumnId(element)); 
         let newColumn = this.data.find((item) => item.id === newColumnId);
         column.todos[this.getCardIndex(element)].id = `${newColumn.todos.length + 1}`;
         
@@ -181,18 +182,18 @@ export class Column extends App {
         }
     }
 
-    deleteOldHtmlElement(column) {
+    deleteOldHtmlElement(column) { //нахуй отсюда
         while (column.firstChild) {
             column.removeChild(column.lastChild);
         }
     }
 
-    clearModalInput(){
+    clearModalInput(){ //преносим в туду
         document.querySelector('.modal__name').value = ''
         document.querySelector('.modal__comment').value = ''
     }
 
-    editCard(element){
+    editCard(element){ //оставим тут
         let column =  this.data.find((item) => item.id === this.getColumnId(element));
         column.todos[this.getCardIndex(element)].title = element.offsetParent.querySelector('input').value
         column.todos[this.getCardIndex(element)].comment = element.offsetParent.querySelector('textarea').value

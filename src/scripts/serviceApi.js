@@ -14,5 +14,5 @@ export const getUserData = () => {
                 }
             }
         })
-        .catch(alert);
+        .catch(alert); //рефакторим
 };
