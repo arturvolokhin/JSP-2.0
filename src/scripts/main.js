@@ -74,11 +74,7 @@ document.addEventListener('click', (e) => {
 document.querySelector('.modal').addEventListener('click', (e) => {
     
     if (e.target.classList.contains('modal__button-accept')){
-        let modal = document.querySelector(".modal");
-        let title = modal.querySelector("input").value;
-        let comment = modal.querySelector("textarea").value;
-        let author = modal.querySelector(".modal__list").value;
-        column.addNewCard(title, comment, author);
+        column.addNewCard(e.target);
         column.clearModalInput();
         column.closeModal(document.querySelector('.modal'));
     }

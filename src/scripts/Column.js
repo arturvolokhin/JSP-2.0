@@ -96,7 +96,10 @@ export class Column extends App {
         element.closest(".kanban__card").querySelector(".kanban__card-edit").classList.toggle("visible");
     }
 
-    addNewCard(titleText, cardTextInput, cardAuthor) {
+    addNewCard(element) {
+        let titleText =  element.offsetParent.querySelector(".modal__name").value
+        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value
+        let cardAuthor = element.offsetParent.querySelector(".modal__list").value
         let cardId = `${this.data[0].todos.length + 1}`;
         let date = `${new Date().toLocaleDateString()} 
                 ${new Date().toLocaleTimeString().slice(0, -3)}`;
@@ -165,6 +168,9 @@ export class Column extends App {
                 card.id = `${column.todos.indexOf(card) + 1}`;
             }
         } else {
+            if(newColumnId === '#todo'){
+                column.todos[this.getCardIndex(element)].comment = ''
+            }
             newColumn.todos.push(column.todos[this.getCardIndex(element)]);
             column.todos.splice(this.getCardIndex(element), 1);
             for (const card of column.todos) {
