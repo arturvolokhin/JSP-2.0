@@ -1,6 +1,6 @@
 import { App } from "./App.js";
 import { getElementInLocalStorage, setElementInLocalStorage } from "./storageApi.js";
-import { CreateNewCard } from "./Card.js";
+
 
 export class Column extends App {
     constructor(columnData) {
@@ -12,8 +12,16 @@ export class Column extends App {
     }
 
     init() {
-        this.deleteOldHtmlElement(this.column);
-        this.column.insertAdjacentHTML("afterbegin", this.createColumn());
+        this.column.innerHTML = `<div class="kanban__column-head">
+                                    <p class="kanban__column-count">${this.counter}</p>
+                                    <h2 class="kanban__column-title">${this.title}</h2>
+                                    <div class="kanban__column-icons">
+                                        <div class="${this.btnDeleteCard}"></div>
+                                        <div class="${this.btnCreateCard}"></div>
+                                    </div>
+                                </div>
+                                <div class="kanban__body">
+                                </div>`
         this.updateColumnCounter();
         this.printCards();
     }
@@ -24,7 +32,17 @@ export class Column extends App {
 
     printCards() {
         this.todos.forEach((card) => {
-            this.column.querySelector(".kanban__body").insertAdjacentHTML("afterbegin", this.createCard(card));
+            this.column.querySelector(".kanban__body").innerHTML = `<div class="kanban__card" id = "${card.id}">
+                                                                        <p class="kanban__card-name">${card.title}</p>
+                                                                        <p class="kanban__card-comment unvisible">${card.comment}</p>
+                                                                        <div class="kanban__card-button kanban__card-button--setting unvisible"></div>
+                                                                        <div class="kanban__card-button kanban__card-button--next"></div>
+                                                                         <div class="kanban__card-footer">
+                                                                            <p class="kanban__card-date">${card.date}</p>
+                                                                            <p class="kanban__card-user unvisible">${card.author}</p>
+                                                                        </div>
+                                                                         <div class="kanban__card-close unvisible"></div>
+                                                                    </div>`
         });
     }
 
@@ -96,19 +114,6 @@ export class Column extends App {
         element.closest(".kanban__card").querySelector(".kanban__card-edit").classList.toggle("visible");
     }
 
-    addNewCard(element) {
-        let titleText =  element.offsetParent.querySelector(".modal__name").value
-        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value
-        let cardAuthor = element.offsetParent.querySelector(".modal__list").value
-        let cardId = `${this.data[0].todos.length + 1}`;
-        let date = `${new Date().toLocaleDateString()} 
-                ${new Date().toLocaleTimeString().slice(0, -3)}`;
-        let newCard = new CreateNewCard(titleText, cardTextInput, cardAuthor, date, cardId);
-        this.data[0].todos.push(newCard);
-        setElementInLocalStorage(this.data, "todos");
-        new App().init();
-    }
-
     getCardIndex(element) {
         let cardIndex = element.closest(".kanban__card").id - 1;
         return cardIndex;
@@ -117,6 +122,12 @@ export class Column extends App {
     getColumnId(element) {
         let columnId = `${"#"}${element.closest(".kanban__column").id}`;
         return columnId;
+    }
+    getModalInputsInfo(element){
+        let titleText =  element.offsetParent.querySelector(".modal__name").value
+        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value
+        let cardAuthor = element.offsetParent.querySelector(".modal__list").value
+        return [titleText, cardTextInput, cardAuthor]
     }
 
     removeCard(element) {

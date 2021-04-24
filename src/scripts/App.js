@@ -5,30 +5,11 @@ export class App {
   constructor() {}
   
   createColumn() {
-      return `<div class="kanban__column-head">
-                  <p class="kanban__column-count">${this.counter}</p>
-                  <h2 class="kanban__column-title">${this.title}</h2>
-                  <div class="kanban__column-icons">
-                      <div class="${this.btnDeleteCard}"></div>
-                      <div class="${this.btnCreateCard}"></div>
-                  </div>
-              </div>
-              <div class="kanban__body">
-              </div>`;
+      return ;
   }
 
   createCard(card) {
-      return `<div class="kanban__card" id = "${card.id}">
-                  <p class="kanban__card-name">${card.title}</p>
-                  <p class="kanban__card-comment unvisible">${card.comment}</p>
-                  <div class="kanban__card-button kanban__card-button--setting unvisible"></div>
-                  <div class="kanban__card-button kanban__card-button--next"></div>
-                  <div class="kanban__card-footer">
-                      <p class="kanban__card-date">${card.date}</p>
-                      <p class="kanban__card-user unvisible">${card.author}</p>
-                  </div>
-                  <div class="kanban__card-close unvisible"></div>
-              </div>`;
+      return 
   }
 
   createCardSettingsModal() {

@@ -1,12 +1,13 @@
 import { Column } from './Column.js';
 import { App } from './App.js';
+import { ColumnTodo} from "./ColumnTodo.js";
 
 import{ getElementInLocalStorage, setElementInLocalStorage} from "./storageApi.js";
 
 new App().init();
 
 let column = new Column(getElementInLocalStorage('todos'));
-
+let columnTodo = new ColumnTodo()
 document.addEventListener('click', (e) => {
     
     if (e.target.classList.contains('kanban__column-add-elements')) {
@@ -74,7 +75,7 @@ document.addEventListener('click', (e) => {
 document.querySelector('.modal').addEventListener('click', (e) => {
     
     if (e.target.classList.contains('modal__button-accept')){
-        column.addNewCard(e.target);
+        new ColumnTodo.addNewCard(e.target);
         column.clearModalInput();
         column.closeModal(document.querySelector('.modal'));
     }
