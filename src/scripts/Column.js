@@ -28,31 +28,22 @@ export class Column extends App {
         });
     }
 
-    toggleVisibleElement(item) {
-        item.classList.toggle("visible");
-    }
-
-    toggleUnvisibleElement(...item) {
-        item.forEach((element) => element.classList.toggle("unvisible"));
+    toggleVisibleElement(...item) {
+        item.forEach((element) => element.classList.toggle("visible"));
     }
 
     darkenBackground() {
         document.querySelector(".wrap").classList.toggle('darkness');
     }
 
-    openModal(element) {
-        this.toggleVisibleElement(element);
-        this.darkenBackground();
-    }
-
-    closeModal(element) {
+    toggleModal(element) {
         this.toggleVisibleElement(element);
         this.darkenBackground();
     }
 
     openCard(card) {
         card.classList.toggle("card-active");
-        this.toggleUnvisibleElement(
+        this.toggleVisibleElement(
             card.querySelector(".kanban__card-comment"),
             card.querySelector(".kanban__card-button--setting"),
             card.querySelector(".kanban__card-button--next"),
@@ -63,9 +54,13 @@ export class Column extends App {
     }
 
     closeCard(card) {
-        let settingsModal = [...card.children].find((child) => child.classList.contains("visible"));
         this.openCard(card);
-        settingsModal ? settingsModal.classList.toggle("visible") : true;
+        if (card.querySelector('.kanban__card-setting').classList.contains('visible')) {
+            card.querySelector('.kanban__card-setting').classList.toggle('visible');
+        }
+        if (card.querySelector('.kanban__card-edit').classList.contains('visible')) {
+            card.querySelector('.kanban__card-edit').classList.toggle('visible');
+        }
     }
 
     showCardSettings(element) {
@@ -97,9 +92,9 @@ export class Column extends App {
     }
 
     addNewCard(element) {
-        let titleText =  element.offsetParent.querySelector(".modal__name").value
-        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value
-        let cardAuthor = element.offsetParent.querySelector(".modal__list").value
+        let titleText =  element.offsetParent.querySelector(".modal__name").value;
+        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value;
+        let cardAuthor = element.offsetParent.querySelector(".modal__list").value;
         let cardId = `${this.data[0].todos.length + 1}`;
         let date = `${new Date().toLocaleDateString()} 
                 ${new Date().toLocaleTimeString().slice(0, -3)}`;

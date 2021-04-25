@@ -12,12 +12,20 @@
     text-align: left;
     border: 2px solid deeppink;
     border-radius: 10px;
-    background: rgb(255, 255, 255);
+    background: rgb(238, 232, 232);
     overflow: auto;
     color: #000;
     cursor: pointer;
 
+    &-user {
+        display: none;
+        opacity: 0;
+        font-style: italic;
+        font-weight: 600;
+    }
+
     &-setting {
+        display: none;
         position: absolute;
         top: calc(50% - 72px);
         width: 85%;
@@ -28,8 +36,6 @@
         padding: 10px;
         border: 1px solid yellow;
         color: #fff;
-        visibility: hidden;
-        opacity: 0;
     }
 
     &-item {
@@ -39,15 +45,26 @@
 
     &-name {
         width: 85%;
+        font-weight: 600;
+        font-size: 22px;
+        font-style: italic;
     }
     
     &-comment {
-        width: 85%;
-        margin: 20px auto;
-        border: 1px solid red;
-        border-radius: 10px;
+        width: 90%;
+        margin: 10px 10px 10px 0;
+        border-top: 1px solid rgb(156, 146, 146);
+        border-bottom: 1px solid rgb(156, 146, 146);
         padding: 10px;
         white-space: pre-wrap;
+        display: none;
+        opacity: 0;
+        line-height: 25px;
+    }
+
+    &-date {
+        font-style: italic;
+        font-weight: 600;
     }
 
     &-footer {
@@ -62,9 +79,10 @@
         width: 30px;
         height: 30px;
         opacity: 0.5;
+        display: none;
         
         &:hover {
-            opacity: 0.9;
+            opacity: 0.6;
         }
 
         &:before {
@@ -92,27 +110,30 @@
     &-edit {
         position: absolute;
         top: calc(50% - 72px);
-        display: flex;
-        flex-direction: column;
+        left: 5px;
         width: 90%;
         padding: 20px;
         background: rgba(0, 0, 0, 0.8);
         border-radius: 20px;
         font-size: 20px;
-        visibility: hidden;
-        opacity: 0;
+        display: none;
         
         &--name {
             padding: 5px;
+            width: 97%;
             font-size: 20px;
             border-radius: 15px;
+            font-family: 'Gilroy';
         }
 
         &--comment {
             padding: 5px;
             margin: 10px 0;
+            width: 97%;
             font-size: 20px;
             border-radius: 15px;
+            resize: none;
+            font-family: 'Gilroy';
         }
         
 
@@ -120,12 +141,14 @@
             display: flex;
             justify-content: space-between;
         }
+        
 
         &--button {
             padding: 5px;
             font-size: 20px;
             width: 40%;
             border-radius: 10px;
+            font-family: 'Gilroy';
         }
     }
 }    

@@ -484,13 +484,21 @@ textarea {
   text-align: left;
   border: 2px solid deeppink;
   border-radius: 10px;
-  background: white;
+  background: #eee8e8;
   overflow: auto;
   color: #000;
   cursor: pointer;
 }
 
+.kanban__card-user {
+  display: none;
+  opacity: 0;
+  font-style: italic;
+  font-weight: 600;
+}
+
 .kanban__card-setting {
+  display: none;
   position: absolute;
   top: calc(50% - 72px);
   width: 85%;
@@ -501,8 +509,6 @@ textarea {
   padding: 10px;
   border: 1px solid yellow;
   color: #fff;
-  visibility: hidden;
-  opacity: 0;
 }
 
 .kanban__card-item {
@@ -512,15 +518,26 @@ textarea {
 
 .kanban__card-name {
   width: 85%;
+  font-weight: 600;
+  font-size: 22px;
+  font-style: italic;
 }
 
 .kanban__card-comment {
-  width: 85%;
-  margin: 20px auto;
-  border: 1px solid red;
-  border-radius: 10px;
+  width: 90%;
+  margin: 10px 10px 10px 0;
+  border-top: 1px solid #9c9292;
+  border-bottom: 1px solid #9c9292;
   padding: 10px;
   white-space: pre-wrap;
+  display: none;
+  opacity: 0;
+  line-height: 25px;
+}
+
+.kanban__card-date {
+  font-style: italic;
+  font-weight: 600;
 }
 
 .kanban__card-footer {
@@ -539,10 +556,11 @@ textarea {
   width: 30px;
   height: 30px;
   opacity: 0.5;
+  display: none;
 }
 
 .kanban__card-close:hover {
-  opacity: 0.9;
+  opacity: 0.6;
 }
 
 .kanban__card-close:before {
@@ -570,33 +588,31 @@ textarea {
 .kanban__card-edit {
   position: absolute;
   top: calc(50% - 72px);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  left: 5px;
   width: 90%;
   padding: 20px;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 20px;
   font-size: 20px;
-  visibility: hidden;
-  opacity: 0;
+  display: none;
 }
 
 .kanban__card-edit--name {
   padding: 5px;
+  width: 97%;
   font-size: 20px;
   border-radius: 15px;
+  font-family: 'Gilroy';
 }
 
 .kanban__card-edit--comment {
   padding: 5px;
   margin: 10px 0;
+  width: 97%;
   font-size: 20px;
   border-radius: 15px;
+  resize: none;
+  font-family: 'Gilroy';
 }
 
 .kanban__card-edit--buttons {
@@ -613,6 +629,7 @@ textarea {
   font-size: 20px;
   width: 40%;
   border-radius: 10px;
+  font-family: 'Gilroy';
 }
 
 .kanban__card-button {
@@ -626,18 +643,23 @@ textarea {
 }
 
 .kanban__card-button--setting {
+  display: none;
   background: url(../images/icons/column-setting.png) center/contain no-repeat;
   top: 50px;
   right: 8px;
+  opacity: 0;
 }
 
 .kanban__card-button--next {
+  display: none;
   background: url(../images/icons/arrow-rigth.png) center/contain no-repeat;
   top: 50px;
   right: 10px;
+  opacity: 0;
 }
 
 .modal {
+  display: none;
   position: absolute;
   top: calc(50% - 250px);
   right: calc(50% - 250px);
@@ -647,7 +669,6 @@ textarea {
   border-radius: 50px;
   background: rgba(24, 6, 41, 0.96);
   opacity: 0;
-  visibility: hidden;
   z-index: 10;
 }
 
@@ -783,6 +804,7 @@ textarea {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -795,8 +817,6 @@ textarea {
   background: rgba(24, 6, 41, 0.96);
   border-radius: 25px;
   font-size: 25px;
-  opacity: 0;
-  visibility: hidden;
   -webkit-transition: 0.3s linear;
   transition: 0.3s linear;
   z-index: 10;
@@ -806,8 +826,11 @@ textarea {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  margin: 45% 0 0 0;
+}
+
+.modal__warning-text {
+  margin: 0 0 22% 0;
 }
 
 .card-active {
@@ -825,11 +848,7 @@ textarea {
 
 .visible {
   opacity: 1;
-  visibility: visible;
-}
-
-.unvisible {
-  display: none;
+  display: block;
 }
 
 .darkness {
