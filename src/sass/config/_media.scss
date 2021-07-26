@@ -77,8 +77,12 @@
     }
 
     .modal {
-        max-width: 330px;
-        right: calc(50% - 165px);
+        width: 100%;
+        right: 0;
+    }
+
+    .modal__button {
+        width: 45%;
     }
 
     .modal__warning {
@@ -88,6 +92,11 @@
     .kanban__card {
         min-width: 250px;
         font-size: 15px;
+    }
+
+    .kanban__card-active {
+        width: 100%;
+        left: 0;
     }
 
     .kanban__column-head {

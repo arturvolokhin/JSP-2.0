@@ -414,7 +414,7 @@ textarea {
   margin: 20px 0 0;
 }
 
-.kanban__column-icons {
+.kanban__column-buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -436,7 +436,7 @@ textarea {
 }
 
 .kanban__column-add-elements {
-  margin: 0 0 0 15px;
+  margin: 0 15px 0 0;
   height: 25px;
   width: 25px;
   background: url(../images/icons/add-elements.png) no-repeat center/contain;
@@ -482,7 +482,6 @@ textarea {
   margin: 20px 0;
   font-size: 20px;
   text-align: left;
-  border: 2px solid deeppink;
   border-radius: 10px;
   background: #eee8e8;
   overflow: auto;
@@ -490,30 +489,43 @@ textarea {
   cursor: pointer;
 }
 
+.kanban__card-active {
+  position: fixed;
+  top: calc(50% - 110px);
+  left: calc(50% - 300px);
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.9);
+  width: 600px;
+  min-height: 300px;
+  z-index: 10;
+}
+
 .kanban__card-user {
-  display: none;
-  opacity: 0;
   font-style: italic;
   font-weight: 600;
 }
 
-.kanban__card-setting {
-  display: none;
+.kanban__card-settings {
   position: absolute;
   top: calc(50% - 72px);
   width: 85%;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 20px;
+  background: #000;
+  border-radius: 10px;
   font-size: 16px;
   text-align: left;
   padding: 10px;
-  border: 1px solid yellow;
+  border: 1px solid #ccc;
   color: #fff;
 }
 
 .kanban__card-item {
-  margin: 20px 0;
+  padding: 15px 10px;
   cursor: pointer;
+}
+
+.kanban__card-item:hover {
+  background: #1f1717;
 }
 
 .kanban__card-name {
@@ -529,9 +541,8 @@ textarea {
   border-top: 1px solid #9c9292;
   border-bottom: 1px solid #9c9292;
   padding: 10px;
-  white-space: pre-wrap;
-  display: none;
-  opacity: 0;
+  white-space: pre-line;
+  overflow-wrap: break-word;
   line-height: 25px;
 }
 
@@ -547,6 +558,7 @@ textarea {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  width: 90%;
 }
 
 .kanban__card-close {
@@ -556,7 +568,7 @@ textarea {
   width: 30px;
   height: 30px;
   opacity: 0.5;
-  display: none;
+  cursor: pointer;
 }
 
 .kanban__card-close:hover {
@@ -591,10 +603,11 @@ textarea {
   left: 5px;
   width: 90%;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 20px;
+  background: #000;
+  border-radius: 10px;
+  border: 1px solid #ccc;
   font-size: 20px;
-  display: none;
+  color: #fff;
 }
 
 .kanban__card-edit--name {
@@ -602,7 +615,10 @@ textarea {
   width: 97%;
   font-size: 20px;
   border-radius: 15px;
+  border: none;
   font-family: 'Gilroy';
+  background: #1f1717;
+  color: #fff;
 }
 
 .kanban__card-edit--comment {
@@ -611,8 +627,11 @@ textarea {
   width: 97%;
   font-size: 20px;
   border-radius: 15px;
+  border: none;
   resize: none;
   font-family: 'Gilroy';
+  background: #1f1717;
+  color: #fff;
 }
 
 .kanban__card-edit--buttons {
@@ -643,32 +662,24 @@ textarea {
 }
 
 .kanban__card-button--setting {
-  display: none;
   background: url(../images/icons/column-setting.png) center/contain no-repeat;
   top: 50px;
   right: 8px;
-  opacity: 0;
 }
 
 .kanban__card-button--next {
-  display: none;
   background: url(../images/icons/arrow-rigth.png) center/contain no-repeat;
   top: 50px;
   right: 10px;
-  opacity: 0;
 }
 
 .modal {
-  display: none;
-  position: absolute;
+  position: fixed;
   top: calc(50% - 250px);
   right: calc(50% - 250px);
   max-width: 500px;
   height: 550px;
-  border: 1px solid deeppink;
-  border-radius: 50px;
-  background: rgba(24, 6, 41, 0.96);
-  opacity: 0;
+  background: rgba(0, 0, 0, 0.95);
   z-index: 10;
 }
 
@@ -681,23 +692,57 @@ textarea {
   width: 80%;
   height: auto;
   min-height: 150px;
-  border-radius: 20px;
   padding: 20px;
   resize: none;
   font-size: 18px;
-  text-align: center;
   vertical-align: center;
   font-family: Gilroy;
+  background: #1f1717;
+  color: #ccc;
+  border: none;
+}
+
+.modal__comment::-webkit-input-placeholder {
+  text-align: center;
+}
+
+.modal__comment:-ms-input-placeholder {
+  text-align: center;
+}
+
+.modal__comment::-ms-input-placeholder {
+  text-align: center;
+}
+
+.modal__comment::placeholder {
+  text-align: center;
 }
 
 .modal__name {
   width: 80%;
-  border-radius: 15px;
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 18px;
-  text-align: center;
   margin: 0 0 20px;
   font-family: Gilroy;
+  background: #1f1717;
+  color: #ccc;
+  border: none;
+}
+
+.modal__name::-webkit-input-placeholder {
+  text-align: center;
+}
+
+.modal__name:-ms-input-placeholder {
+  text-align: center;
+}
+
+.modal__name::-ms-input-placeholder {
+  text-align: center;
+}
+
+.modal__name::placeholder {
+  text-align: center;
 }
 
 .modal__list {
@@ -706,9 +751,10 @@ textarea {
   padding: 16px;
   font-size: 16px;
   border: none;
-  border-radius: 15px;
   font-family: Gilroy;
   cursor: pointer;
+  background: #1f1717;
+  color: #ccc;
 }
 
 .modal__links {
@@ -730,7 +776,6 @@ textarea {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  max-width: 390px;
   margin: 35px auto;
 }
 
@@ -742,12 +787,13 @@ textarea {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   margin: 0 auto;
-  border-radius: 30px;
+  border-radius: 10px;
   border: none;
   color: #ffffff;
   font-size: 22px;
   padding: 10px;
-  width: 110px;
+  max-width: 180px;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.05);
   -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -766,19 +812,19 @@ textarea {
   width: 100%;
   height: 50%;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 30px 30px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 
 .modal__button:hover {
-  background: #5da6ff;
-  -webkit-box-shadow: 0 0 15px #5da6ff, 0 0 30px #5da6ff, 0 0 35px #5da6ff, 0 0 40px #5da6ff;
-          box-shadow: 0 0 15px #5da6ff, 0 0 30px #5da6ff, 0 0 35px #5da6ff, 0 0 40px #5da6ff;
+  background: #1c3452;
+  -webkit-box-shadow: 0 0 15px #1c3452, 0 0 20px #1c3452, 0 0 25px #1c3452, 0 0 30px #1c3452;
+          box-shadow: 0 0 15px #1c3452, 0 0 20px #1c3452, 0 0 25px #1c3452, 0 0 30px #1c3452;
 }
 
 .modal__dropdown {
   position: relative;
   display: inline-block;
-  width: 80%;
+  width: 88%;
 }
 
 .modal__dropdown:hover .modal__links {
@@ -851,7 +897,7 @@ textarea {
   display: block;
 }
 
-.darkness {
+.blur {
   position: absolute;
   margin: -100px 0 0 0;
   z-index: 5;
@@ -958,8 +1004,11 @@ textarea {
     min-width: 0;
   }
   .modal {
-    max-width: 330px;
-    right: calc(50% - 165px);
+    width: 100%;
+    right: 0;
+  }
+  .modal__button {
+    width: 45%;
   }
   .modal__warning {
     max-width: 300px;
@@ -967,6 +1016,10 @@ textarea {
   .kanban__card {
     min-width: 250px;
     font-size: 15px;
+  }
+  .kanban__card-active {
+    width: 100%;
+    left: 0;
   }
   .kanban__column-head {
     min-width: 250px;

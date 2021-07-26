@@ -1,85 +1,92 @@
-import { Column } from './Column.js';
-import { App } from './App.js';
-import{ getElementInLocalStorage, setElementInLocalStorage} from "./storageApi.js";
+import { Column } from "./Column.js";
+import { App } from "./App.js";
+import { getElementInLocalStorage } from "./storageApi.js";
 
 new App().init();
 
-let column = new Column(getElementInLocalStorage('todos'));
+let column = new Column(getElementInLocalStorage("todos"));
 
-document.addEventListener('click', (e) => {
-    
-    if (e.target.classList.contains('kanban__column-add-elements')) {
-        column.toggleModal(document.querySelector('.modal'));
+document.addEventListener("click", ({ target }) => {
+    if (target.classList.contains("kanban__column-add-elements")) {
+        column.openModal(target.closest(".kanban"));
     }
 
-    if (e.target.classList.contains('kanban__column-delete-cards')) {
-        column.removeAllCard(e.target);
+    if (target.classList.contains("kanban__column-delete-cards")) {
+        column.removeAllCard(target.closest(".kanban__column").id);
     }
 
-    if (e.target.closest(".kanban__card")) {
-        if (!e.target.closest(".kanban__card").classList.contains('card-active') && 
-            !e.target.classList.contains("kanban__card-button--next")){
-                column.openCard(e.target.closest(".kanban__card"));
-        } 
+    if (target.closest(".kanban__card")) {
+        !target.classList.contains("kanban__card-button--next") &&
+            column.openCard(
+                target.closest(".kanban__card"),
+                target.closest(".kanban__column")
+            );
     }
 
-    if (e.target.closest('.kanban__card-button--setting')) {
-        column.showCardSettings(e.target);
+    if (target.closest(".kanban__card-close")) {
+        column.closeCardSettings(target.closest(".kanban__card-active"));
     }
 
-    if (e.target.closest('.kanban__card-close')) {
-        column.closeCard(e.target.closest(".kanban__card"));
+    if (target.closest(".kanban__card-button--setting")) {
+        column.openCardSettings(target.closest(".kanban__card-active"));
     }
 
-    if (e.target.closest('.kanban__card-item--delete')){
-        column.removeCard(e.target);
+    if (target.classList.contains("kanban__card-item--edit")) {
+        column.openCardEdit(
+            target.closest(".kanban__card-active"),
+            target.closest(".kanban__card-settings")
+        );
     }
 
-    if (e.target.classList.contains("kanban__card-item--edit")) {
-        column.showEditCardModal(e.target);
+    if (target.closest(".kanban__card-item--delete")) {
+        column.removeCard(
+            target.closest(".kanban__card-active"),
+            target.closest(".kanban__column").id
+        );
     }
 
-    if (e.target.classList.contains("kanban__card-edit--cancel")) {
-        column.toggleVisibleElement(e.target.closest('.kanban__card-edit'));
-    
+    if (target.classList.contains("kanban__card-edit--cancel")) {
+        column.removeNode(target.closest(".kanban__card-edit"));
     }
 
-    if (e.target.classList.contains("kanban__card-button--next")) {
-        column.transferCardAnotherColumn(e.target);
-    }    
-
-    if (e.target.classList.contains("kanban__card-edit--submit")) {
-       column.editCard(e.target);
+    if (target.classList.contains("kanban__card-button--next")) {
+        column.moveCardToNextColumn(
+            target.closest(".kanban__card"),
+            target.closest(".kanban__column")
+        );
     }
 
-    if (e.target.id === 'button-cancel') {
-        column.toggleVisibleElement(document.querySelector('#modalRemoveAllCards'));
+    if (target.classList.contains("kanban__card-edit--submit")) {
+        column.editCard(
+            target.closest(".kanban__card-edit"),
+            target.closest(".kanban__card-active")
+        );
+    }
+
+    if (target.id === "button-cancel") {
+        column.toggleVisibleElement(
+            document.querySelector("#modalRemoveAllCards")
+        );
         column.darkenBackground();
     }
 
-    if (e.target.id === 'button-accept') {
-        column.removeAllCard(document.querySelector('.kanban__column--progress'));
-        column.toggleVisibleElement(document.querySelector('#modalRemoveAllCards'));
-        column.darkenBackground();
+    if (target.classList.contains("modal__button-cancel")) {
+        column.removeNode(target.closest(".modal"));
     }
-
-    if (e.target.id === 'button-consent') {
-        document.querySelector('#modalMaxCards').classList.toggle('visible');
-        column.darkenBackground();
-    }
-
 });
 
-document.querySelector('.modal').addEventListener('click', (e) => {
-    
-    if (e.target.classList.contains('modal__button-accept')){
-        column.addNewCard(e.target);
-        column.clearModalInput();
-        column.toggleModal(document.querySelector('.modal'));
+document.querySelector('.kanban').addEventListener('click', (e) => {
+    if (e.target.classList.contains("modal__button-submit")) {
+        e.preventDefault();
+        const modal = e.target.closest(".modal");
+        const title = modal.querySelector(".modal__name").value;
+        const comment = modal.querySelector(".modal__comment").value;
+        
+        if (title.length > 5 && comment.length > 10) {
+            column.createNewCard(modal, title, comment);
+            column.removeNode(modal);
+        } else {
+            alert('Введите минимум 5 символов в названии и 10 в комментарии');
+        }
     }
-
-    if (e.target.classList.contains("modal__button-cancel")) {
-        column.toggleModal(document.querySelector('.modal'));
-    } 
-
-});
+})

@@ -1,199 +1,138 @@
 import { App } from "./App.js";
-import { getElementInLocalStorage, setElementInLocalStorage } from "./storageApi.js";
+import { setElementInLocalStorage, getElementInLocalStorage } from "./storageApi.js";
 import { CreateNewCard } from "./Card.js";
+import { v4 as uuid } from "uuid";
 
 export class Column extends App {
     constructor(columnData) {
         super();
-        let {id, title, counter, columnClass, btnDeleteCard, btnCreateCard, todos,} = columnData;
-        Object.assign(this, {id, title, counter, columnClass, btnDeleteCard, btnCreateCard, todos,});
-        this.column = document.querySelector(this.id);
+        let { id, classes, title, counter, todos } = columnData;
+        Object.assign(this, { id, classes, title, counter, todos });
+        this.column = document.querySelector(`.${this.classes}`);
         this.data = columnData;
     }
 
     init() {
-        this.deleteOldHtmlElement(this.column);
-        this.column.insertAdjacentHTML("afterbegin", this.createColumn());
+        this.column.innerHTML = this.createColumnContent();
         this.updateColumnCounter();
         this.printCards();
     }
 
     updateColumnCounter() {
-        this.column.querySelector(".kanban__column-count").innerText = this.todos.length;
+        this.column.querySelector(".kanban__column-count").innerText =
+            this.todos.length;
     }
 
     printCards() {
         this.todos.forEach((card) => {
-            this.column.querySelector(".kanban__body").insertAdjacentHTML("afterbegin", this.createCard(card));
+            this.column
+                .querySelector(".kanban__body")
+                .insertAdjacentHTML("afterbegin", this.createCard(card));
         });
     }
 
-    toggleVisibleElement(...item) {
-        item.forEach((element) => element.classList.toggle("visible"));
+    blurBackground() {
+        document.querySelector(".wrap").classList.toggle("blur");
     }
 
-    darkenBackground() {
-        document.querySelector(".wrap").classList.toggle('darkness');
+    openModal(element) {
+        element.insertAdjacentHTML("afterbegin", this.createModal());
+        const users = getElementInLocalStorage('users');
+        users.map(user => {
+            element.querySelector('.modal__list').insertAdjacentHTML('afterbegin',
+            `<option>${user.name}</option>`)
+        })
+        
     }
 
-    toggleModal(element) {
-        this.toggleVisibleElement(element);
-        this.darkenBackground();
-    }
-
-    openCard(card) {
-        card.classList.toggle("card-active");
-        this.toggleVisibleElement(
-            card.querySelector(".kanban__card-comment"),
-            card.querySelector(".kanban__card-button--setting"),
-            card.querySelector(".kanban__card-button--next"),
-            card.querySelector(".kanban__card-user"),
-            card.querySelector(".kanban__card-close")
+    openCard(card, column) {
+        const cardData = this.data[column.id].todos.find(
+            (item) => item.id == card.id
         );
-        this.darkenBackground();
+        column.insertAdjacentHTML("beforeend", this.createActiveCard(cardData));
+        this.blurBackground();
     }
 
-    closeCard(card) {
-        this.openCard(card);
-        if (card.querySelector('.kanban__card-setting').classList.contains('visible')) {
-            card.querySelector('.kanban__card-setting').classList.toggle('visible');
-        }
-        if (card.querySelector('.kanban__card-edit').classList.contains('visible')) {
-            card.querySelector('.kanban__card-edit').classList.toggle('visible');
-        }
-    }
-
-    showCardSettings(element) {
-        let cardItem = [...element.closest(".kanban__card").children];
-        let checkSettings = cardItem.find((item) => item.classList.contains("kanban__card-setting"));
-
-        if (!checkSettings && this.getColumnId(element) !== "#inProgress" &&
-            this.getColumnId(element) !== "#done") {
-            element.parentNode.insertAdjacentHTML("beforeend",
-            this.createCardSettingsModal());
-        } else if (!checkSettings && this.getColumnId(element) == "#done") {
-            element.parentNode.insertAdjacentHTML("beforeend",
-            this.createCardSettingsModalWithoutEdit());
-        } else if (!checkSettings && this.getColumnId(element) == "#inProgress") {
-            element.parentNode.insertAdjacentHTML("beforeend",
-            this.createCardSettingsModalWithoutEdit());
-        }
-        element.parentNode.querySelector(".kanban__card-setting").classList.toggle("visible");
-    }
-
-    showEditCardModal(element) {
-        let cardChildren = [...element.closest(".kanban__card").children];
-
-        if (!cardChildren.find((item) => item.classList.contains("kanban__card-edit"))) {
-            element.closest(".kanban__card").insertAdjacentHTML("afterbegin", this.createEditCardModal());
-        }
-        element.closest(".kanban__card-setting").classList.toggle("visible");
-        element.closest(".kanban__card").querySelector(".kanban__card-edit").classList.toggle("visible");
-    }
-
-    addNewCard(element) {
-        let titleText =  element.offsetParent.querySelector(".modal__name").value;
-        let cardTextInput = element.offsetParent.querySelector(".modal__comment").value;
-        let cardAuthor = element.offsetParent.querySelector(".modal__list").value;
-        let cardId = `${this.data[0].todos.length + 1}`;
-        let date = `${new Date().toLocaleDateString()} 
-                ${new Date().toLocaleTimeString().slice(0, -3)}`;
-        let newCard = new CreateNewCard(titleText, cardTextInput, cardAuthor, date, cardId);
-        this.data[0].todos.push(newCard);
-        setElementInLocalStorage(this.data, "todos");
-        new App().init();
-    }
-
-    getCardIndex(element) {
-        let cardIndex = element.closest(".kanban__card").id - 1;
-        return cardIndex;
+    openCardSettings(card) {
+        card.querySelector(".kanban__card-settings")
+            ? this.removeNode(card.querySelector(".kanban__card-settings"))
+            : card.insertAdjacentHTML("afterbegin", this.createCardSettings());
     }
 
     getColumnId(element) {
-        let columnId = `${"#"}${element.closest(".kanban__column").id}`;
-        return columnId;
+        return element.closest(".kanban__column").id;
     }
 
-    removeCard(element) {
-        let column = this.data.find((item) => item.id === this.getColumnId(element));
-        column.todos.splice(this.getCardIndex(element), 1);
-        for (const card of column.todos) {
-            card.id = `${column.todos.indexOf(card) + 1}`;
-        }
+    getCardIndex(element, card) {
+        return element.findIndex((todo) => todo.id === card.id);
+    }
+
+    removeNode(element) {
+        element.remove();
+    }
+
+    closeCardSettings(card) {
+        this.removeNode(card);
+        this.blurBackground();
+    }
+
+    openCardEdit(card, settings) {
+        const cardData = this.data[this.getColumnId(card)].todos.find(
+            (todo) => todo.id === card.id
+        );
+        this.removeNode(settings);
+        card.insertAdjacentHTML("afterbegin", this.createCardEdit(cardData));
+    }
+
+    editCard(editModal, card) {
+        let column = this.data[this.getColumnId(card)];
+        let index = this.getCardIndex(column.todos, card);
+        column.todos[index].title = editModal.querySelector("input").value;
+        column.todos[index].comment = editModal.querySelector("textarea").value;
         setElementInLocalStorage(this.data, "todos");
-        this.darkenBackground();
+        this.removeNode(editModal);
+        this.blurBackground();
         new App().init();
     }
 
-    removeAllCard(element) {
-        let column = this.data.find((item) => item.id === this.getColumnId(element));
-        if (column.id === '#inProgress' && 
-        !document.querySelector('#modalRemoveAllCards').classList.contains('visible')) {
-            document.querySelector('#modalRemoveAllCards').classList.toggle('visible');
-            this.darkenBackground();
-        } else {
-            column.todos.length = 0;
-            setElementInLocalStorage(this.data, "todos");
-            new App().init();
-        }
-    }
-
-    transferCardAnotherColumn(element) {
-        let newColumnId;
-        switch (this.getColumnId(element)) {
-        case "#todo":
-            newColumnId = "#inProgress";
-            break;
-        case "#inProgress":
-            newColumnId = "#done";
-            break;
-        case "#done":
-            newColumnId = "#todo";
-            break;
-        }
-        
-        let column = this.data.find((item) => item.id === this.getColumnId(element));
-        let newColumn = this.data.find((item) => item.id === newColumnId);
-        column.todos[this.getCardIndex(element)].id = `${newColumn.todos.length + 1}`;
-        
-        if (newColumn.todos.length >= 6 && newColumn.id === '#inProgress') {
-            document.querySelector('#modalMaxCards').classList.toggle('visible');
-            this.darkenBackground();
-            for (const card of column.todos) {
-                card.id = `${column.todos.indexOf(card) + 1}`;
-            }
-        } else {
-            if(newColumnId === '#todo'){
-                column.todos[this.getCardIndex(element)].comment = ''
-            }
-            newColumn.todos.push(column.todos[this.getCardIndex(element)]);
-            column.todos.splice(this.getCardIndex(element), 1);
-            for (const card of column.todos) {
-                card.id = `${column.todos.indexOf(card) + 1}`;
-            }
-            setElementInLocalStorage(this.data, "todos");
-            new App().init();
-        }
-    }
-
-    deleteOldHtmlElement(column) {
-        while (column.firstChild) {
-            column.removeChild(column.lastChild);
-        }
-    }
-
-    clearModalInput(){
-        document.querySelector('.modal__name').value = ''
-        document.querySelector('.modal__comment').value = ''
-    }
-
-    editCard(element){
-        let column =  this.data.find((item) => item.id === this.getColumnId(element));
-        column.todos[this.getCardIndex(element)].title = element.offsetParent.querySelector('input').value
-        column.todos[this.getCardIndex(element)].comment = element.offsetParent.querySelector('textarea').value
+    createNewCard(modal, title, comment) {
+        const newCardData = {
+            title: title,
+            comment: comment,
+            user: modal.querySelector(".modal__list").value,
+            date: `${new Date().toLocaleDateString()} 
+                    ${new Date().toLocaleTimeString().slice(0, -3)}`,
+            id: uuid(),
+        };
+        this.data[0].todos.push(new CreateNewCard(newCardData));
         setElementInLocalStorage(this.data, "todos");
-        this.toggleVisibleElement(element.closest('.kanban__card-edit'))
-        this.darkenBackground();
+        new App().init();
+    }
+
+    removeCard(card, id) {
+        const index = this.getCardIndex(this.data[id].todos, card);
+        this.data[id].todos.splice(index, 1);
+        setElementInLocalStorage(this.data, "todos");
+        this.blurBackground();
+        new App().init();
+    }
+
+    removeAllCard(id) {
+        this.data[id].todos.length = 0;
+        setElementInLocalStorage(this.data, "todos");
+        new App().init();
+    }
+
+    moveCardToNextColumn(card, column) {
+        let oldColumn = this.data[column.id];
+        let newColumn = null;
+        column.id === "2"
+            ? (newColumn = this.data[0])
+            : (newColumn = this.data[+column.id + 1]);
+        const index = this.getCardIndex(oldColumn.todos, card)
+        newColumn.todos.push(oldColumn.todos[index]);
+        oldColumn.todos.splice(index, 1);
+        setElementInLocalStorage(this.data, "todos");
         new App().init();
     }
 }

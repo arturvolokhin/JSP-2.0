@@ -8,17 +8,13 @@
 }
 
 .kanban__card-button--setting {
-    display: none;
     background: url(../images/icons/column-setting.png) center / contain no-repeat;
     top: 50px;
     right: 8px;
-    opacity: 0;
 }
 
 .kanban__card-button--next {
-    display: none;
     background: url(../images/icons/arrow-rigth.png) center / contain no-repeat;
     top: 50px;
     right: 10px;
-    opacity: 0;
 }

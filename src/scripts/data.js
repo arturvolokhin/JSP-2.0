@@ -1,28 +1,28 @@
 export const data = [
     {
-        id: "#todo",
+        // id: "#todo",
+        id: 0,
+        classes: 'kanban__column--todo',
         title: "Todo",
         counter: 0,
-        btnDeleteCard: "kanban__column-delete-cards",
-        btnCreateCard: "kanban__column-add-elements",
         todos: [],
     },
 
     {
-        id: "#inProgress",
+        // id: "#inProgress",
+        id: 1,
+        classes: 'kanban__column--progress',
         title: "In Progress",
         counter: 0,
-        columnClass: "kanban__column kanban__column--progress",
-        btnDeleteCard: "kanban__column-delete-cards",
         todos: [],
     },
 
     {
-        id: "#done",
+        // id: "#done",
+        id: 2,
+        classes: 'kanban__column--done',
         title: "Done",
         counter: 0,
-        columnClass: "kanban__column kanban__column--done",
-        btnDeleteCard: "kanban__column-delete-cards",
         todos: [],
     },
     

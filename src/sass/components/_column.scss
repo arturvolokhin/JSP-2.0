@@ -16,7 +16,7 @@
         margin: 20px 0 0;
     }
 
-    &-icons {
+    &-buttons {
         display: flex;
         height: 25px;
         justify-content: space-between;
@@ -32,7 +32,7 @@
     }
     
     &-add-elements {
-        margin: 0 0 0 15px;
+        margin: 0 15px 0 0;
         height: 25px;
         width: 25px;
         background: url(../images/icons/add-elements.png) no-repeat center / contain;
